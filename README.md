@@ -36,7 +36,7 @@ Scheduled automated data pipelines to extract and process data on a daily basis.
 ## ⚡ Phase 2: Real-time Streaming with Kafka & Spark
 Built a producer to generate mock stock data (AAPL, GOOGL, MSFT, TSLA) into a Kafka topic, and a PySpark consumer to process the micro-batches in real-time.
 
-![Spark Streaming Output](images/The Streaming Engine.png)
+![Spark Streaming Output](images/Spark_Streaming_Engine.png)
 *(Replace the image path above with your actual Kafka/Spark Terminal screenshot)*
 
 ---
@@ -44,7 +44,7 @@ Built a producer to generate mock stock data (AAPL, GOOGL, MSFT, TSLA) into a Ka
 ## 🗄️ Phase 3: Real-time Database Sink
 Configured the Spark structured streaming job to write the processed data directly into a PostgreSQL database using JDBC drivers.
 
-![PostgreSQL Results](images/Query financial.png)
+![PostgreSQL Results](images/Query_financial.png)
 *(Replace the image path above with your actual PostgreSQL SELECT query screenshot)*
 
 ---
