@@ -1,0 +1,39 @@
+services:
+  # 1. KAFKA (ท่อรับข้อมูล - ใช้ของ Confluent ผู้สร้าง Kafka ตัวจริง)
+  kafka:
+    image: confluentinc/confluent-local:7.5.0
+    container_name: kafka-broker
+    ports:
+      - "9092:9092"
+    mem_limit: 1g
+
+  # 2. SPARK MASTER (สมองกลสั่งการ - ใช้ Official Image ของ Apache)
+  spark-master:
+    image: apache/spark:3.5.0
+    container_name: spark-master
+    command: ./bin/spark-class org.apache.spark.deploy.master.Master
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+    mem_limit: 1g
+
+  # 3. SPARK WORKER (กล้ามเนื้อประมวลผล - ใช้ Official Image ของ Apache)
+  spark-worker:
+    image: apache/spark:3.5.0
+    container_name: spark-worker
+    command: ./bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    depends_on:
+      - spark-master
+    mem_limit: 2g
+
+  # 4. POSTGRES (โกดังเก็บข้อมูลปลายทาง)
+  postgres:
+    image: postgres:15
+    container_name: postgres-db
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=financial_db
+    ports:
+      - "5432:5432"
+    mem_limit: 1g
